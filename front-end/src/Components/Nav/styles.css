@@ -1,0 +1,70 @@
+.Container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  height: 6rem;
+  background: rgb(170, 57, 57);
+  color: white;
+
+}
+.Container__MenuButton {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  height: 100%;
+  width: auto;
+}
+.Container__MenuIcon {
+  font-size: 3rem;
+  margin: 0 2rem;
+  color: white;
+}
+.Container__Header {
+  font-size: 2rem;
+  margin-right: 2rem;
+  font-family: 'Josefin Sans', sans-serif;
+  cursor: pointer;
+}
+
+.Container__InputContainer {
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgb(212, 106, 106);
+}
+
+.Container__SearchIcon {
+  font-size: 2rem;
+  margin-right: 2rem;
+}
+.Container__SearchInput {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+  border: 0;
+  font-size: 2rem;
+  background: transparent;
+  color: white;
+}
+.Container__IconsContainer {
+  margin-left: auto;
+  height: 100%;
+  min-width: 40rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+:global(.Container__Focus_White) {
+  background: white;
+}
+:global(.Container__Color_Black) {
+  color: black;
+}
+:global(.Container__Text_Underline) {
+  border-bottom: 2px solid white;
+}

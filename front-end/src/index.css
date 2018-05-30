@@ -1,5 +1,9 @@
-body {
+:global(:root) {
+  font-size: 62.5%;
+}
+:global(*) {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  box-sizing: border-box;
+  font-family: 'Poiret One', cursive;
 }

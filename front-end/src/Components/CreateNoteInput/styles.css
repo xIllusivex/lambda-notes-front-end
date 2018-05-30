@@ -1,0 +1,70 @@
+.Container {
+  margin-top: 3rem;
+  border: 1px solid lightgray;
+  width: 35%;
+  padding: 1.4rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: .1rem .3rem .6rem .1rem rgba(0, 0, 0, 0.7);
+}
+.Container__InputContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.Container__Input {
+  border: 0;
+  border-radius: 0;
+  width: 100%;
+  font-size: 1.8rem;
+}
+.Container__ImgButton {
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 0.5rem;
+  background: transparent;
+  height: 100%;
+  width: auto;
+}
+.Container__ImgButton:hover {
+  background: lightgray;
+  border-radius: 5px;
+}
+.Container__ImgButton:focus {
+  outline: 0;
+}
+.Container__ImageIcon {
+  font-size: 2rem;
+}
+.Container__IconsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.Container__ActionButtonContainer {
+  min-width: 20%;
+  height: 100%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.Container__ActionButton {
+  border-radius: 0;
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  margin-right: 1rem;
+
+}
+.Container__Font_Bold{
+  font-weight: bold;
+  font-size: 2rem;
+  color: black;
+}
+.Container__Margin_Right {
+  margin-left: 1rem;
+}
