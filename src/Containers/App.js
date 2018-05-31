@@ -17,14 +17,13 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    // https://afternoon-citadel-23531.herokuapp.com/api/notes
-    axios.get('http://localhost:5000/api/notes')
+    axios.get('https://afternoon-citadel-23531.herokuapp.com/api/notes')
       .then(response => {
         this.setState({notes: response.data});
       })
   }
   handleUpdate = (id, update) => {
-    axios.put(`http://localhost:5000/api/notes/${id}`, update)
+    axios.put(`https://afternoon-citadel-23531.herokuapp.com/api/notes/${id}`, update)
       .then(r => {
         let {notes} = this.state;
         notes.map((note) => {
@@ -39,7 +38,7 @@ class App extends Component {
       })
   }
   handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/api/notes/${id}`)
+    axios.delete(`https://afternoon-citadel-23531.herokuapp.com/api/notes/${id}`)
     .then(r => {
       this.setState({notes: r.data});
     })
@@ -53,7 +52,7 @@ class App extends Component {
       newNote.content = content;
     }
     if(newNote.title !== undefined && newNote.content !== undefined){
-      axios.post('http://localhost:5000/api/notes', newNote)
+      axios.post('https://afternoon-citadel-23531.herokuapp.com/api/notes', newNote)
         .then(r => {
           const {notes} = this.state;
           notes.push(r.data);
