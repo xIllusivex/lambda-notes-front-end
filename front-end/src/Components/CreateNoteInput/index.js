@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import classes from './styles.css';
 
+
 export class CreateNoteInput extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       title: '',
       content: '',
@@ -14,37 +15,42 @@ export class CreateNoteInput extends Component{
     this.setState({[e.target.name]: e.target.value});
   }
   render(){
+    let spaceInput = {};
     let isActive = {
       display: 'none'
-    }
+    };
     let dspImg = {
       display: 'inline'
-    }
+    };
     let displayIcons = {
       display: 'none'
-    }
+    };
     if (this.state.inputActive === true) {
       isActive.display = 'inline';
+      isActive.marginBottom = '2rem';
       dspImg.display = 'none';
-      displayIcons.display = 'flex'
-    }
+      displayIcons.display = 'flex';
+      spaceInput.marginBottom = '1rem';
+    };
     return (
       <div className={classes.Container}>
         <input
-          placeholder='title'
+          placeholder='Title'
           className={classes.Container__Font_Bold + " " + classes.Container__Input}
           style={isActive}
           name='title'
           value={this.state.title}
           onChange={this.handleState}
         />
-        <div className={classes.Container__InputContainer} onClick={() => {this.setState({inputActive: true})}} >
+        <div className={classes.Container__InputContainer} >
           <input
             placeholder='Take a note...'
             className={classes.Container__Input}
             name='content'
             value={this.state.content}
             onChange={this.handleState}
+            onClick={() => {this.setState({inputActive: true})}}
+            style={spaceInput}
           />
           <button className={classes.Container__ImgButton} style={dspImg}>
             <i className={`fas fa-file-image ${classes.Container__ImageIcon}`}></i>
@@ -58,8 +64,11 @@ export class CreateNoteInput extends Component{
             <i className="fas fa-paint-brush"></i>
           </button>
           <div className={classes.Container__ActionButtonContainer}>
-            <button className={classes.Container__ActionButton}>Send</button>
-            <button className={classes.Container__ActionButton} onClick={() => this.setState({inputActive: false, title: '', content: ''})}>Exit</button>
+            <button className={classes.Container__ActionButton} onClick={() => {
+              this.props.handleSubmit(this.state.title, this.state.content);
+              this.setState({inputActive: false, title: '', content: ''});
+            }}>Send</button>
+            <button className={classes.Container__ActionButton} onClick={() => this.setState({inputActive: false, title: '', content: ''})}>Close</button>
           </div>
         </div>
       </div>
