@@ -105,6 +105,9 @@ export class Note extends Component {
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_White} onClick={() => {
             this.setState({backgroundColor: 'white'});
           }}></button>
+          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Green} onClick={() => {
+            this.setState({backgroundColor: 'rgb(135, 207, 135)'});
+          }}></button>
         </div>
       )
     }
