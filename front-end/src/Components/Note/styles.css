@@ -2,7 +2,6 @@
   width: 20%;
   min-height: 10rem;
   position: relative;
-  border: 1px solid lightgray;
   padding: 1rem;
   margin-right: 2rem;
   margin-bottom: 2rem;
@@ -105,6 +104,7 @@
   left: 0;
   min-height: 5rem;
   min-width: 10rem;
+  max-width: 15rem;
   background: white;
   border: 1px solid lightgray;
   box-shadow: .1rem .3rem .6rem .1rem rgba(0, 0, 0, 0.5);
@@ -112,11 +112,22 @@
   z-index: 4;
 }
 .Container__ToolTip_Color {
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   border: 1px solid black;
   border-radius: 50%;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 .Container__Margin_Right {
   margin-right: auto;
+}
+.Container__ToolTip_White {
+  background: white;
+}
+.Container__ToolTip_Blue {
+  background: rgb(161, 202, 202);
+}
+.Container__ToolTip_Red {
+  background: rgb(255, 166, 166);
 }

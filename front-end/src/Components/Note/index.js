@@ -6,23 +6,22 @@ export class Note extends Component {
     super(props);
     this.state = {
       modal: false,
+      showIcons: false,
+      showColorTool: false,
       title: this.props.note.title,
       content: this.props.note.content,
-      showColorTool: false,
-      color: '',
+      backgroundColor: '',
     };
   }
   changeVal = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
   render(){
-    let blueToolTip = {
-      background:'rgb(38, 146, 146)',
-    }
+    let icons = null;
     let display = {
       visibility: 'visible',
     }
-    let background = {};
+    let toolTip = null;
     let modal = null;
     if (this.state.modal === true) {
       display.visibility = 'hidden';
@@ -62,36 +61,56 @@ export class Note extends Component {
         </div>
       )
     }
-    if (this.state.color !== '') {
-      background.background = this.state.color;
+    if (this.state.backgroundColor !== '') {
+      display.background = this.state.backgroundColor;
+    }
+    if (this.state.showIcons === true) {
+      icons = (
+        <div className={classes.Container__IconsContainer}>
+          <div className={classes.Container__IconContainer} onClick={(e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+          }} onMouseOver={(e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+            this.setState({showColorTool: true});
+          }}>
+            <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
+          </div>
+        </div>
+      )
+    }
+    if (this.state.showColorTool === true) {
+      toolTip = (
+        <div className={classes.Container__ToolTip} onClick={(e) => {
+          e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
+        }} onMouseLeave={() => {this.setState({showColorTool: false})}}>
+          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Blue} onClick={() => {
+            this.setState({backgroundColor: 'rgb(161, 202, 202)'});
+          }} ></button>
+          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Red} onClick={() => {
+            this.setState({backgroundColor: 'rgb(255, 166, 166)'});
+          }}></button>
+          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_White} onClick={() => {
+            this.setState({backgroundColor: 'white'});
+          }}></button>
+        </div>
+      )
     }
     return (
       <React.Fragment>
         <div className={classes.Container} style={display} onClick={() => {
-          this.setState({modal: true})
+          this.setState({modal: true});
+        }} onMouseOver={() => {
+          this.setState({showIcons: true});
+        }} onMouseLeave={() => {
+          this.setState({showIcons:false});
         }}>
           {this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null}
           {this.props.note.content.length > 0  && this.props.note.content !== undefined ? <p className={classes.Container__Text}>{this.props.note.content}</p> : null}
-          <div className={classes.Container__IconsContainer}>
-            <div className={classes.Container__IconContainer} onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-            }} onMouseOver={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-            }}>
-              <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
-            </div>
-          </div>
-          <div className={classes.Container__ToolTip} onClick={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-          }}>
-            <button className={classes.Container__ToolTip_Color} onClick={(e) => {
-              this.setState({color: 'rgb(38, 146, 146)'});
-              console.log('blue')
-            }} style={blueToolTip}></button>
-          </div>
+          {icons}
+          {toolTip}
         </div>
         {modal}
       </React.Fragment>
