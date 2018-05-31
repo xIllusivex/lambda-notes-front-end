@@ -8,6 +8,7 @@ export class Note extends Component {
       modal: false,
       showIcons: false,
       showColorTool: false,
+      enterTool: false,
       title: this.props.note.title,
       content: this.props.note.content,
       backgroundColor: '',
@@ -74,6 +75,11 @@ export class Note extends Component {
             e.stopPropagation();
             e.nativeEvent.stopImmediatePropagation();
             this.setState({showColorTool: true});
+            setTimeout(() => {
+              if (this.state.enterTool !== true) {
+                this.setState({showColorTool: false});
+              }
+              }, 1000)
           }}>
             <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
           </div>
@@ -85,7 +91,11 @@ export class Note extends Component {
         <div className={classes.Container__ToolTip} onClick={(e) => {
           e.stopPropagation();
           e.nativeEvent.stopImmediatePropagation();
-        }} onMouseLeave={() => {this.setState({showColorTool: false})}}>
+        }} onMouseEnter = {() => {
+          this.setState({enterTool: true})
+        }} onMouseLeave={() => {
+          this.setState({showColorTool: false, enterTool: false})
+        }}>
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Blue} onClick={() => {
             this.setState({backgroundColor: 'rgb(161, 202, 202)'});
           }} ></button>
