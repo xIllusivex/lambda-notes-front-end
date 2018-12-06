@@ -1,10 +1,10 @@
 .Container {
   margin-top: 3rem;
+  margin-bottom: 3rem;
   border: 1px solid lightgray;
-  width: 35%;
   padding: 1rem;
-  align-items: center;
   display: flex;
+  align-items: center;
   flex-direction: column;
   box-shadow: .1rem .3rem .6rem .1rem rgba(0, 0, 0, 0.7);
 }
@@ -31,6 +31,7 @@
 .Container__ImgButton:hover {
   background: lightgray;
   border-radius: 5px;
+  display: block;
 }
 .Container__ImgButton:focus {
   outline: 0;

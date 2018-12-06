@@ -36,12 +36,12 @@ export class Note extends Component {
               className={classes.Container__ModalInput + " " + classes.Container__Font_Bold }
               onChange={this.changeVal}
             />
-            <input
+            <textarea
               name='content'
               placeholder='Take a note...'
-              value={this.state.content}
-              className={classes.Container__ModalInput}
-              onChange={this.changeVal}
+              value={ this.state.content }
+              className={ classes.Container__ModalInput }
+              onChange={ this.changeVal }
             />
             <div className={classes.Container__ModalButtonContainer}>
               <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right} onClick={() => {
@@ -114,14 +114,14 @@ export class Note extends Component {
     return (
       <React.Fragment>
         <div className={classes.Container} style={display} onClick={() => {
-          this.setState({modal: true});
+            this.setState({modal: true});
         }} onMouseOver={() => {
           this.setState({showIcons: true});
         }} onMouseLeave={() => {
           this.setState({showIcons:false});
         }}>
-          {this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null}
-          {this.props.note.content.length > 0  && this.props.note.content !== undefined ? <p className={classes.Container__Text}>{this.props.note.content}</p> : null}
+          {this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null}
+          {this.props.note.content.length > 0 ? <p className={classes.Container__Text}>{this.props.note.content.length > 61 ? `${this.props.note.content.slice(0, 62).trim()}...` : this.props.note.content }</p> : null}
           {icons}
           {toolTip}
         </div>

@@ -26,7 +26,7 @@ export class CreateNoteInput extends Component{
       display: 'none'
     };
     if (this.state.inputActive === true) {
-      isActive.display = 'inline';
+      isActive.display = 'flex';
       isActive.marginBottom = '2rem';
       dspImg.display = 'none';
       displayIcons.display = 'flex';
@@ -37,7 +37,7 @@ export class CreateNoteInput extends Component{
         <input
           placeholder='Title'
           className={classes.Container__Font_Bold + " " + classes.Container__Input}
-          style={isActive}
+          style={ isActive }
           name='title'
           value={this.state.title}
           onChange={this.handleState}
@@ -52,9 +52,9 @@ export class CreateNoteInput extends Component{
             onClick={() => {this.setState({inputActive: true})}}
             style={spaceInput}
           />
-          <button className={classes.Container__ImgButton} style={dspImg}>
+        <div className={classes.Container__ImgButton} style={dspImg}>
             <i className={`fas fa-file-image ${classes.Container__ImageIcon}`}></i>
-          </button>
+          </div>
         </div>
         <div className={classes.Container__IconsContainer} style={displayIcons}>
           <button className={classes.Container__ImgButton}>

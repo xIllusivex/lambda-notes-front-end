@@ -25,7 +25,7 @@ export const Nav = (props) => {
         <i className={`fas fa-search ${classes.Container__SearchIcon}`}></i>
         <input
           className={classes.Container__SearchInput}
-          placeholder='search'
+          placeholder='Search'
         />
       </div>
       <div className={classes.Container__IconsContainer}>

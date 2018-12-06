@@ -1,11 +1,13 @@
 .Container{
-  width: 20%;
-  min-height: 10rem;
+  width: 90%;
+  min-height: 20rem;
   position: relative;
   padding: 1rem;
-  margin-right: 2rem;
   margin-bottom: 2rem;
   box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
 }
 .Container:hover {
   box-shadow: .1rem .4rem .6rem .2rem rgba(0, 0, 0, 0.5);
@@ -14,15 +16,19 @@
   font-size: 2rem;
   margin-bottom: 2rem;
   pointer-events: none;
+  overflow: hidden;
 }
 .Container__Text {
+  max-height: 50rem;
   font-size: 4rem;
   pointer-events: none;
+  overflow: hidden;
 }
 .Container__IconsContainer {
   width: 100%;
   height: 3rem;
   display: flex;
+  margin-top: auto;
 }
 .Container__IconContainer {
   padding: 0.5rem;
@@ -67,6 +73,10 @@
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+textarea {
+  resize: none;
+  min-height: 10rem;
+}
 .Container__Font_Bold {
   font-weight: bold;
 }
@@ -100,7 +110,7 @@
 }
 .Container__ToolTip {
   position: absolute;
-  top: 95%;
+  top: 100%;
   left: 0;
   min-height: 5rem;
   min-width: 10rem;
