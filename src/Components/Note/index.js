@@ -11,7 +11,7 @@ export class Note extends Component {
       enterTool: false,
       title: this.props.note.title,
       content: this.props.note.content,
-      backgroundColor: '',
+      backgroundColor: this.props.note.background,
     };
   }
   changeVal = (e) => {
@@ -19,13 +19,14 @@ export class Note extends Component {
   }
   render(){
     let icons = null;
-    let display = {
+    let styles = {
       visibility: 'visible',
+      background: this.state.backgroundColor,
     }
     let toolTip = null;
     let modal = null;
     if (this.state.modal === true) {
-      display.visibility = 'hidden';
+      styles.visibility = 'hidden';
       modal = (
         <div className={classes.Container__Modal}>
           <div className={classes.Container__ContentContainer}>
@@ -62,9 +63,6 @@ export class Note extends Component {
         </div>
       )
     }
-    if (this.state.backgroundColor !== '') {
-      display.background = this.state.backgroundColor;
-    }
     if (this.state.showIcons === true) {
       icons = (
         <div className={classes.Container__IconsContainer}>
@@ -83,6 +81,22 @@ export class Note extends Component {
           }}>
             <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
           </div>
+          <div className={classes.Container__IconContainer} onClick={(e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+          }} onMouseOver={(e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+            this.setState({showColorTool: true});
+            setTimeout(() => {
+              if (this.state.enterTool !== true) {
+                this.setState({showColorTool: false});
+              }
+              }, 1000)
+          }}>
+            // <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
+            <i class={"fas fa-image " + classes.Container__NoteIcon}></i>
+          </div>
         </div>
       )
     }
@@ -98,22 +112,26 @@ export class Note extends Component {
         }}>
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Blue} onClick={() => {
             this.setState({backgroundColor: 'rgb(161, 202, 202)'});
+            this.props.handleUpdate(this.props.note._id, {background: 'rgb(161, 202, 202)'});
           }} ></button>
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Red} onClick={() => {
             this.setState({backgroundColor: 'rgb(255, 166, 166)'});
+            this.props.handleUpdate(this.props.note._id, {background: 'rgb(255, 166, 166)'});
           }}></button>
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_White} onClick={() => {
             this.setState({backgroundColor: 'white'});
+            this.props.handleUpdate(this.props.note._id, {background: 'white'});
           }}></button>
           <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Green} onClick={() => {
             this.setState({backgroundColor: 'rgb(135, 207, 135)'});
+            this.props.handleUpdate(this.props.note._id, {background: 'rgb(135, 207, 135)'});
           }}></button>
         </div>
       )
     }
     return (
       <React.Fragment>
-        <div className={classes.Container} style={display} onClick={() => {
+        <div className={classes.Container} style={styles} onClick={() => {
             this.setState({modal: true});
         }} onMouseOver={() => {
           this.setState({showIcons: true});

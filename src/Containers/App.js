@@ -31,6 +31,7 @@ class App extends Component {
           if(note._id === r.data._id){
             note.title = r.data.title;
             note.content = r.data.content;
+            note.background = r.data.background;
             return note
           }
           return note
