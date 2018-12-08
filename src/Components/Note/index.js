@@ -84,18 +84,9 @@ export class Note extends Component {
           <div className={classes.Container__IconContainer} onClick={(e) => {
             e.stopPropagation();
             e.nativeEvent.stopImmediatePropagation();
-          }} onMouseOver={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-            this.setState({showColorTool: true});
-            setTimeout(() => {
-              if (this.state.enterTool !== true) {
-                this.setState({showColorTool: false});
-              }
-              }, 1000)
+            console.log("click");
           }}>
-            // <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
-            <i class={"fas fa-image " + classes.Container__NoteIcon}></i>
+            <i className={"fas fa-image " + classes.Container__NoteIcon}></i>
           </div>
         </div>
       )
