@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./DragDrop.css";
+import classes from "./DragDrop.css";
 import Boxing from "./Assets/Boxing.svg";
 import Weight from "./Assets/Weight.svg";
 
@@ -22,7 +22,7 @@ class DragDrop extends Component {
   };
 
   triggerUpload = () => {
-    const UPLOAD = document.querySelector(".DragDropContainer__UploadButton");
+    const UPLOAD = document.getElementById("button");
     UPLOAD.click();
   };
 
@@ -72,7 +72,7 @@ class DragDrop extends Component {
       isSupported = (
         <React.Fragment>
           <div
-            className="DragDropContainer__DropArea"
+            className={ classes.DragDropContainer__DropArea }
             onClick={e => {
               e.stopPropagation();
             }}
@@ -82,18 +82,17 @@ class DragDrop extends Component {
             }}
             onDragLeave={e => {
               this.dragLeave(e);
-            }}
-          >
-            <div className="DragDropContainer__InnerContainer">
-              <div className="DragDropContainer__ImgContainer">
+            }}>
+            <div className={ classes.DragDropContainer__InnerContainer }>
+              <div className={ classes.DragDropContainer__ImgContainer }>
                 <img
                   src={Boxing}
                   alt="a box with an arrow pointing in."
-                  className="DragDropContainer__Img"
+                  className= { classes.DragDropContainer__Img }
                 />
               </div>
               <p
-                className="DragDropContainer__TextContainer"
+                className={ classes.DragDropContainer__TextContainer }
                 onDrop={e => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -104,25 +103,26 @@ class DragDrop extends Component {
                 }}
               >
                 <button
-                  className="DragDropContainer__Button"
-                  onClick={this.triggerUpload}
+                  className={ classes.DragDropContainer__Button }
+                  onClick={ this.triggerUpload }
                 >
                   Choose a file
                 </button>
-                <span className="DragDropContainer__Text">
-                  or drag it here.
+                <span className= { classes.DragDropContainer__Text }>
+                  &nbsp; or drag it here.
                 </span>
                 <input
                   type="file"
-                  className="DragDropContainer__UploadButton"
+                  id="button"
+                  className={ classes.DragDropContainer__UploadButton }
                   name="file1"
                 />
               </p>
             </div>
           </div>
-          <p className="DragDropContainer__WeightLimit">
+          <p className={ classes.DragDropContainer__WeightLimit }>
             <img src={Weight} alt="Size Limit" />
-            <span className="DragDropContainer__WeightLimit_Text">8mb.</span>
+            <span className={ classes.DragDropContainer__WeightLimit_Text }> 8mb. </span>
           </p>
         </React.Fragment>
       );
@@ -134,12 +134,7 @@ class DragDrop extends Component {
         </React.Fragment>
       );
     return (
-      <div
-        className="DragDropContainer"
-        onClick={e => {
-          this.props.renderDragDrop(e);
-        }}
-      >
+      <div className={ classes.DragDropContainer } onClick={() => { this.props.toggleModal(); }}>
         {isSupported}
       </div>
     );

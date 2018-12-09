@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classes from './App.css';
-import {Nav} from '../Components/Nav';
-import {Note} from '../Components/Note';
+import { Nav } from '../Components/Nav';
+import { Note } from '../Components/Note';
 // import {Route, Link, Redirect} from 'react-router-dom';
-import {SideBar} from '../Components/SideBar';
-import {CreateNoteInput} from '../Components/CreateNoteInput';
+import { SideBar } from '../Components/SideBar';
+import { CreateNoteInput } from '../Components/CreateNoteInput';
+import Modal from '../Components/dragDrop/';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      image_Modal:false,
       menu: false,
       notes: [],
+      note: null,
     };
+  }
+  toggleModal = (note) => {
+    if (!this.state.image_Modal) {
+      this.setState({image_Modal: !this.state.image_Modal, note: note});
+    } else {
+      this.setState({image_Modal: !this.state.image_Modal});
+    }
+  }
+  submitFile = (image) => {
+    console.log(image);
+    const { notes } = this.state;
+    notes.map((n) => {
+      if (n === this.state.note) n.image = image;
+    });
+    this.setState({ image_Modal: !this.state.image_Modal, notes: notes });
   }
   // GET's all notes from the server
   componentDidMount() {
@@ -26,7 +44,7 @@ class App extends Component {
   handleUpdate = (id, update) => {
     axios.put(`https://afternoon-citadel-23531.herokuapp.com/api/notes/${id}`, update)
       .then(r => {
-        let {notes} = this.state;
+        let { notes } = this.state;
         notes.map((note) => {
           if(note._id === r.data._id){
             note.title = r.data.title;
@@ -70,6 +88,10 @@ class App extends Component {
   }
 
   render() {
+    let modal = null;
+    if (this.state.image_Modal) {
+      modal = <Modal toggleModal={ this.toggleModal } submitFile={ this.submitFile }/>;
+    }
     let notes = (
       <div key={'12345678090'} className={`fa-3x ${classes.Container__SpinnerContainer}`}>
         <i className={`fas fa-cog fa-spin ${classes.Container__SpinnerIcon}`}></i>
@@ -91,7 +113,7 @@ class App extends Component {
                 <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
                   { this.state.notes.slice(j, max).map( (n, i) => {
                     j += 1;
-                    return <Note key={ n + i } note={ n } handleUpdate={ this.handleUpdate } handleDelete={ this.handleDelete }/>
+                    return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal }/>
                   })}
                 </div>
               )
@@ -102,6 +124,7 @@ class App extends Component {
     }
     return (
       <div className={classes.Container}>
+        { modal }
         <Nav handleState={this.handleState}/>
         <div className={classes.Container__ContentContainer}>
           {this.state.menu ? <SideBar/> : null}

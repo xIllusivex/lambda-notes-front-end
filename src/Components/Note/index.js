@@ -12,6 +12,7 @@ export class Note extends Component {
       title: this.props.note.title,
       content: this.props.note.content,
       backgroundColor: this.props.note.background,
+      image: this.props.note.image,
     };
   }
   changeVal = (e) => {
@@ -28,14 +29,14 @@ export class Note extends Component {
     if (this.state.modal === true) {
       styles.visibility = 'hidden';
       modal = (
-        <div className={classes.Container__Modal}>
-          <div className={classes.Container__ContentContainer}>
+        <div className={ classes.Container__Modal }>
+          <div className={ classes.Container__ContentContainer }>
             <input
               name='title'
               placeholder='Title'
-              value={this.state.title}
-              className={classes.Container__ModalInput + " " + classes.Container__Font_Bold }
-              onChange={this.changeVal}
+              value={ this.state.title }
+              className={ classes.Container__ModalInput + " " + classes.Container__Font_Bold }
+              onChange={ this.changeVal }
             />
             <textarea
               name='content'
@@ -47,7 +48,7 @@ export class Note extends Component {
             <div className={classes.Container__ModalButtonContainer}>
               <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right} onClick={() => {
                 this.props.handleDelete(this.props.note._id);
-                this.setState({modal: false});
+                this.setState({ modal: false });
               }}>
                 <i className={"fas fa-trash-alt " + classes.Container__ModalIcon}></i>
               </div>
@@ -56,7 +57,7 @@ export class Note extends Component {
                   const update = {title: this.state.title, content: this.state.content};
                   this.props.handleUpdate(this.props.note._id, update);
                 }
-                this.setState({modal: false})
+                this.setState({ modal: false })
               }}>Close</button>
             </div>
           </div>
@@ -84,7 +85,7 @@ export class Note extends Component {
           <div className={classes.Container__IconContainer} onClick={(e) => {
             e.stopPropagation();
             e.nativeEvent.stopImmediatePropagation();
-            console.log("click");
+            this.props.toggleModal(this.props.note);
           }}>
             <i className={"fas fa-image " + classes.Container__NoteIcon}></i>
           </div>
@@ -129,12 +130,13 @@ export class Note extends Component {
         }} onMouseLeave={() => {
           this.setState({showIcons:false});
         }}>
+          <img file={ this.state.image } alt="broken"/>
           {this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null}
           {this.props.note.content.length > 0 ? <p className={classes.Container__Text}>{this.props.note.content.length > 61 ? `${this.props.note.content.slice(0, 62).trim()}...` : this.props.note.content }</p> : null}
-          {icons}
-          {toolTip}
+          { icons }
+          { toolTip }
         </div>
-        {modal}
+        { modal }
       </React.Fragment>
     )
   }
