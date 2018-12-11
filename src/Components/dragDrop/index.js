@@ -122,7 +122,7 @@ class DragDrop extends Component {
           </div>
           <p className={ classes.DragDropContainer__WeightLimit }>
             <img src={Weight} alt="Size Limit" />
-            <span className={ classes.DragDropContainer__WeightLimit_Text }> 8mb. </span>
+            <span className={ classes.DragDropContainer__WeightLimit_Text }> 8Mb </span>
           </p>
         </React.Fragment>
       );

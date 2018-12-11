@@ -9,7 +9,7 @@ export const Nav = (props) => {
         <i className={`fas fa-bars ${classes.Container__MenuIcon}`}></i>
       </button>
       <h2 className={classes.Container__Header} onMouseDown={(e) => e.target.childNodes[1].classList.add('Container__Text_Underline')} onMouseUp={(e) => {e.target.childNodes[1].classList.remove('Container__Text_Underline')}}>
-        E.G.
+        E.G.&nbsp;
         <span className={classes.Container__Pointer_None}>Notes</span>
       </h2>
       <div className={classes.Container__InputContainer} onFocus={(e) => {

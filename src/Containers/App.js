@@ -124,7 +124,7 @@ class App extends Component {
     return (
       <div className={classes.Container}>
         { modal }
-        <Nav handleState={this.handleState}/>
+        <Nav handleState={this.handleState} notes={ this.state.notes }/>
         <div className={classes.Container__ContentContainer}>
           {this.state.menu ? <SideBar/> : null}
           <div className={classes.Container__InputContainer}>
