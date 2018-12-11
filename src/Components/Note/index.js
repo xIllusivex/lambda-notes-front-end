@@ -130,7 +130,7 @@ export class Note extends Component {
         }} onMouseLeave={() => {
           this.setState({showIcons:false});
         }}>
-          <img file={ this.state.image } alt="broken"/>
+          {this.props.note.image === undefined ? null : <img src={ URL.createObjectURL(this.props.note.image) } alt="broken" width="50rem" height="50rem"/>}
           {this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null}
           {this.props.note.content.length > 0 ? <p className={classes.Container__Text}>{this.props.note.content.length > 61 ? `${this.props.note.content.slice(0, 62).trim()}...` : this.props.note.content }</p> : null}
           { icons }

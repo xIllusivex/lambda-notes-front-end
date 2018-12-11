@@ -26,7 +26,6 @@ class App extends Component {
     }
   }
   submitFile = (image) => {
-    console.log(image);
     const { notes } = this.state;
     notes.map((n) => {
       if (n === this.state.note) n.image = image;
