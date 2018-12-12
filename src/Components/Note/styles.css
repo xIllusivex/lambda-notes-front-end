@@ -2,7 +2,6 @@
   width: 90%;
   min-height: 20rem;
   position: relative;
-  padding: 1rem;
   margin-bottom: 2rem;
   box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
   /* overflow: hidden; */
@@ -14,15 +13,16 @@
 }
 .Container__Header {
   font-size: 2rem;
-  margin-bottom: 2rem;
   pointer-events: none;
   overflow: hidden;
+  padding: 1rem;
 }
 .Container__Text {
   max-height: 50rem;
   font-size: 4rem;
   pointer-events: none;
   overflow: hidden;
+  padding: 1rem;
 }
 .Container__IconsContainer {
   width: 100%;

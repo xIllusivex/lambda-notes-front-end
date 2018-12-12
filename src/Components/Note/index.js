@@ -24,9 +24,10 @@ export class Note extends Component {
       visibility: 'visible',
       background: this.state.backgroundColor,
     }
+    const image = this.props.note.image !== undefined ? this.props.note.image.name : null;
     let imgStyles = {
       height: '20rem',
-      backgroundImage: `url(${ this.props.note.image ? URL.createObjectURL(this.props.note.image) : '' })`,
+      backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'none',
@@ -137,7 +138,7 @@ export class Note extends Component {
         }} onMouseLeave={() => {
           this.setState({showIcons:false});
         }}>
-          { this.props.note.image === undefined ? null : <div style={ imgStyles }></div> }
+          { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
           { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null }
           { this.props.note.content.length > 0 ? <p className={classes.Container__Text}>{this.props.note.content.length > 61 ? `${this.props.note.content.slice(0, 62).trim()}...` : this.props.note.content }</p> : null }
           { icons }
