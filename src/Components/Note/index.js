@@ -18,6 +18,70 @@ export class Note extends Component {
   changeVal = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
+  parseMarkDown = (e) => {
+    let str = e.split('');
+
+    for (let i=0; i < str.length; i++) {
+      if (str[i] === '#') {
+        const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
+        str.splice(i, subStr.length, subStr.replace(/(\#+)([\w\W]+)/i, (match, p1, p2, offset, string) => {
+          return `<h${p1.length <=6 ? p1.length : 6}>${p2}</h${p1.length <=6 ? p1.length : 6}>`;
+        }));
+        i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length;
+      }
+      else if (str[i] === '>') {
+        const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
+
+        str.splice(i, subStr.length, subStr.replace(/\>([\w\W]+)/i, (match, p1, offset, string) => {
+          return `<p class='Container__Blockquote'>${p1}</p>`;
+        }));
+
+        i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length;
+      }
+      // i need to treat inline code differently. this method does not work.
+      else if (str[i] === '[') {
+        const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
+
+        str.splice(i, subStr.length, subStr.replace(/\[([\w\W]+)\]\(([\w\W]+)\)/i, (match, p1, p2, offset, string) => {
+          return `<a href='${p2}' target='_blank'>${p1}</a>`;
+        }));
+        i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) - 1 : str.length;
+      }
+      // check for a code block.
+      else if (str[i] === '`') {
+        const subStr = str.slice(i, str.indexOf('`', i + 3) !== -1 ? str.indexOf('`', i + 3) + 3: str.length).join('');
+        str.splice(i, subStr.length + 1, subStr.replace(/^(```)([\w\W]+)(```)$/i, (match, p1, p2, p3, offset, string) => {
+          p2 = p2.replace(/\</g, '&lt;');
+          p2 = p2.replace(/\>/g, '&gt;');
+          p2 = p2[0] !== '\n' ? p2.replace(/\n/g, '<br/>') : p2.slice(1,).replace(/\n/g, '<br/>');
+          if (p1.length === 3) {
+            return `<p class='Container__Codeblock'>${p2}</p>`;
+          } else {
+            // call a function that will parse the back tick as an inline element.
+          }
+        }));
+      }
+      else if (str[i] === '!') {
+        const subStr = str.slice(i, str.indexOf(')', i) !== -1 ? str.indexOf(')', i) + 1: str.length).join('');
+        str.splice(i, subStr.length, subStr.replace(/\!\[([\w\W]+)\]\((https:\/\/[\w\/\.\-]+\.(?:png|jpe?g|svg))\)/i, (match, p1, p2, p3, offset, string) => {
+          return `<img src='${p2}' alt='${p1 !== undefined ? p1 : ''}'/>`;
+        }));
+        i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) - 1 : str.length;
+      }
+      else if (str[i] === '\n') {
+        str[i] = '<br/>';
+      }
+      else {
+        const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
+        str.splice(i, subStr.length, subStr.replace(/([\w\W]+)/i, (match, p1, offset, string) => {
+          return `<p>${p1}</p>`;
+        }));
+        i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length;
+      }
+    }
+    return str.join('');
+  }
+
   render(){
     let icons = null;
     let styles = {
@@ -140,7 +204,7 @@ export class Note extends Component {
         }}>
           { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
           { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null }
-          { this.props.note.content.length > 0 ? <p className={classes.Container__Text}>{this.props.note.content.length > 61 ? `${this.props.note.content.slice(0, 62).trim()}...` : this.props.note.content }</p> : null }
+          { this.props.note.content.length > 0 ? <div  dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
           { icons }
           { toolTip }
         </div>

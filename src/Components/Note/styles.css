@@ -1,6 +1,6 @@
 .Container{
   width: 90%;
-  min-height: 20rem;
+  min-height: 15rem;
   position: relative;
   margin-bottom: 2rem;
   box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
@@ -13,16 +13,18 @@
 }
 .Container__Header {
   font-size: 2rem;
+  font-weight: 900;
   pointer-events: none;
   overflow: hidden;
   padding: 1rem;
 }
 .Container__Text {
   max-height: 50rem;
-  font-size: 4rem;
+  font-size: 3rem;
   pointer-events: none;
   overflow: hidden;
   padding: 1rem;
+  line-height: 1;
 }
 .Container__IconsContainer {
   width: 100%;
@@ -43,7 +45,7 @@
 }
 .Container__Modal {
   background: rgba(215, 215, 215, 0.6);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

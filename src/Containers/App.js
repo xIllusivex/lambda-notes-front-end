@@ -52,6 +52,9 @@ class App extends Component {
         this.setState({notes: response.data});
       })
   }
+  filterNotes = () => {
+
+  }
   // sends a put request to the server to update the values in a note.
   handleUpdate = (id, update) => {
     axios.put(`https://afternoon-citadel-23531.herokuapp.com/api/notes/${id}`, update)
@@ -137,7 +140,7 @@ class App extends Component {
     return (
       <div className={classes.Container}>
         { modal }
-        <Nav handleState={this.handleState} notes={ this.state.notes }/>
+        <Nav handleState={this.handleState} notes={ this.state.notes } filterNotes={ this.filterNotes }/>
         <div className={classes.Container__ContentContainer}>
           {this.state.menu ? <SideBar/> : null}
           <div className={classes.Container__InputContainer}>
