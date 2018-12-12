@@ -150,3 +150,6 @@ textarea {
 .Container__ToolTip_Green {
   background: rgb(135, 207, 135);
 }
+:global(.pointer) {
+  pointer-events: all;
+}

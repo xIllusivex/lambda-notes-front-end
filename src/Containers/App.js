@@ -49,11 +49,18 @@ class App extends Component {
   componentDidMount() {
     axios.get('https://afternoon-citadel-23531.herokuapp.com/api/notes')
       .then(response => {
-        this.setState({notes: response.data});
+        this.setState({ notes: response.data });
       })
   }
-  filterNotes = () => {
-
+  filterNotes = (value) => {
+    const regexp = new RegExp(value, 'i');
+    const {notes} = this.state;
+    notes.map((n) => {
+      if (regexp.test(n.title)){
+        n['display'] = true;
+      } else n['display'] = false;
+    })
+    this.setState({ notes: notes });
   }
   // sends a put request to the server to update the values in a note.
   handleUpdate = (id, update) => {
@@ -113,15 +120,15 @@ class App extends Component {
       </div>
     )
     if (this.state.notes.length > 0) {
+      const columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth >= 480 ? 2 : window.innerWidth <= 480 ? 1 : 4;
       const notesLen = this.state.notes.length; // the length of the notes array.
-      const avg = ~~(notesLen / 4); // the floored avg of the length of the notes arr divided by four.
-      let r = (notesLen / 4) % 1 * 4; // remainder of the length of the notes array divided by four.
+      const avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
+      let r = (notesLen / columns) % 1 * columns; // remainder of the length of the notes array divided by four.
       let j = 0; // the iterator to properly slice the notes array.
-
       notes = (
         <div className={classes.Container__NotesContainer}>
           {
-            [...Array(4).keys()].map((i) => {
+            [...Array(columns).keys()].map((i) => {
               let max = r > 0 ? avg + 1 + j : avg + j;
               if (r > 0) r--;
               return (
@@ -140,7 +147,7 @@ class App extends Component {
     return (
       <div className={classes.Container}>
         { modal }
-        <Nav handleState={this.handleState} notes={ this.state.notes } filterNotes={ this.filterNotes }/>
+        <Nav handleState={this.handleState} filterNotes={ this.filterNotes }/>
         <div className={classes.Container__ContentContainer}>
           {this.state.menu ? <SideBar/> : null}
           <div className={classes.Container__InputContainer}>

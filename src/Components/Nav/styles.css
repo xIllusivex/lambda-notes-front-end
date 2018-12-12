@@ -62,7 +62,6 @@
 .Container__IconsContainer {
   margin-left: auto;
   height: 100%;
-  min-width: 40rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -78,4 +77,16 @@
 }
 :global(.Container__Text_Underline) {
   border-bottom: 2px solid white;
+}
+
+@media(max-width: 76.8rem) {
+  .Container__InputContainer {
+    width: 100%;
+  }
+  .Container__SearchInput {
+    width: 95%;
+  }
+  .Container__Header {
+    margin-right: 1rem;
+  }
 }

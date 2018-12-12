@@ -43,7 +43,7 @@ export class Note extends Component {
         const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
 
         str.splice(i, subStr.length, subStr.replace(/\[([\w\W]+)\]\(([\w\W]+)\)/i, (match, p1, p2, offset, string) => {
-          return `<a href='${p2}' target='_blank'>${p1}</a>`;
+          return `<a href='${p2}' class='pointer' target='_blank'>${p1}</a>`;
         }));
         i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) - 1 : str.length;
       }
@@ -87,6 +87,9 @@ export class Note extends Component {
     let styles = {
       visibility: 'visible',
       background: this.state.backgroundColor,
+    }
+    if (this.props.note.display !== undefined &&!this.props.note.display) {
+      styles['display'] = 'none';
     }
     const image = this.props.note.image !== undefined ? this.props.note.image.name : null;
     let imgStyles = {

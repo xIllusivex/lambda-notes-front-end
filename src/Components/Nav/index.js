@@ -5,9 +5,11 @@ import classes from './styles.css';
 export const Nav = (props) => {
   return (
     <div className={classes.Container}>
-      <button className={classes.Container__MenuButton} onClick={props.handleState}>
-        <i className={`fas fa-bars ${classes.Container__MenuIcon}`}></i>
-      </button>
+      { window.innerWidth > 480 ?
+        <button className={classes.Container__MenuButton} onClick={props.handleState}>
+          <i className={`fas fa-bars ${classes.Container__MenuIcon}`}></i>
+        </button>
+       : null}
       <h2 className={classes.Container__Header} onMouseDown={(e) => e.target.childNodes[1].classList.add('Container__Text_Underline')} onMouseUp={(e) => {e.target.childNodes[1].classList.remove('Container__Text_Underline')}}>
         E.G.&nbsp;
         <span className={classes.Container__Pointer_None}>Notes</span>
@@ -23,16 +25,16 @@ export const Nav = (props) => {
       }} onBlur={(e) => {
         e.target.classList.remove('Container__Color_Black');
         e.target.parentNode.classList.remove('Container__Focus_White', 'Container__Color_Black');
-        e.target.value='';
+        // e.target.value='';
       }}>
         <i className={`fas fa-search ${classes.Container__SearchIcon}`}></i>
         <input
           className={classes.Container__SearchInput}
           placeholder='Search'
+          onChange={(e) => props.filterNotes(e.target.value)}
         />
       </div>
       <div className={classes.Container__IconsContainer}>
-
       </div>
     </div>
   )

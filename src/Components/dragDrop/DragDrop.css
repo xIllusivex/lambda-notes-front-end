@@ -88,3 +88,9 @@
   padding: 8px;
   pointer-events: none;
 }
+
+@media(max-width: 48rem) {
+  .DragDropContainer__DropArea {
+    width: 100%;
+  }
+}
