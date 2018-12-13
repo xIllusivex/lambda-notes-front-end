@@ -3,6 +3,8 @@
   height: 100vh;
   border-right: 1px solid lightgray;
   position: fixed;
+  z-index: 2;
+  background: white;
 }
 .Container__Header {
   font-size: 1.8rem;
