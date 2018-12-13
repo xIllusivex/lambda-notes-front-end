@@ -8,6 +8,8 @@ import { SideBar } from '../Components/SideBar';
 import { CreateNoteInput } from '../Components/CreateNoteInput';
 import Modal from '../Components/dragDrop/';
 
+
+
 class App extends Component {
   constructor() {
     super();

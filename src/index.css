@@ -8,3 +8,9 @@
   font-family: 'Poiret One', cursive;
   letter-spacing: 2px;
 }
+:global(a) {
+  font-weight: bold;
+  color: #4F7174;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+}

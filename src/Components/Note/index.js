@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import classes from './styles.css';
+import ColorWheel from '../ColorWheel/';
+
 
 export class Note extends Component {
   constructor(props){
@@ -7,13 +9,19 @@ export class Note extends Component {
     this.state = {
       modal: false,
       showIcons: false,
-      showColorTool: false,
-      enterTool: false,
+      colorWheel: false,
       title: this.props.note.title,
       content: this.props.note.content,
       backgroundColor: this.props.note.background,
       image: this.props.note.image,
     };
+  }
+  handleColorWheel = (color) => {
+    if (color !== undefined) {
+      this.setState({ backgroundColor: color, colorWheel: !this.state.colorWheel });
+    } else {
+      this.setState({ colorWheel: !this.state.colorWheel });
+    }
   }
   changeVal = (e) => {
     this.setState({[e.target.name]: e.target.value});
@@ -141,58 +149,29 @@ export class Note extends Component {
     }
     if (this.state.showIcons === true) {
       icons = (
-        <div className={classes.Container__IconsContainer}>
-          <div className={classes.Container__IconContainer} onClick={(e) => {
+        <div className={classes.Container__IconsContainer} onClick={(e) => {
+            e.preventDefault()
             e.stopPropagation();
             e.nativeEvent.stopImmediatePropagation();
-          }} onMouseOver={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-            this.setState({showColorTool: true});
-            setTimeout(() => {
-              if (this.state.enterTool !== true) {
-                this.setState({showColorTool: false});
-              }
-              }, 1000)
+          }}>
+          <div
+            className={classes.Container__IconContainer}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+              this.handleColorWheel();
           }}>
             <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
           </div>
-          <div className={classes.Container__IconContainer} onClick={(e) => {
-            e.stopPropagation();
-            e.nativeEvent.stopImmediatePropagation();
-            this.props.toggleModal(this.props.note);
+          <div
+            className={classes.Container__IconContainer}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+              this.props.toggleModal(this.props.note);
           }}>
             <i className={"fas fa-image " + classes.Container__NoteIcon}></i>
           </div>
-        </div>
-      )
-    }
-    if (this.state.showColorTool === true) {
-      toolTip = (
-        <div className={classes.Container__ToolTip} onClick={(e) => {
-          e.stopPropagation();
-          e.nativeEvent.stopImmediatePropagation();
-        }} onMouseEnter = {() => {
-          this.setState({enterTool: true})
-        }} onMouseLeave={() => {
-          this.setState({showColorTool: false, enterTool: false})
-        }}>
-          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Blue} onClick={() => {
-            this.setState({backgroundColor: 'rgb(161, 202, 202)'});
-            this.props.handleUpdate(this.props.note._id, {background: 'rgb(161, 202, 202)'});
-          }} ></button>
-          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Red} onClick={() => {
-            this.setState({backgroundColor: 'rgb(255, 166, 166)'});
-            this.props.handleUpdate(this.props.note._id, {background: 'rgb(255, 166, 166)'});
-          }}></button>
-          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_White} onClick={() => {
-            this.setState({backgroundColor: 'white'});
-            this.props.handleUpdate(this.props.note._id, {background: 'white'});
-          }}></button>
-          <button className={classes.Container__ToolTip_Color + " " + classes.Container__ToolTip_Green} onClick={() => {
-            this.setState({backgroundColor: 'rgb(135, 207, 135)'});
-            this.props.handleUpdate(this.props.note._id, {background: 'rgb(135, 207, 135)'});
-          }}></button>
         </div>
       )
     }
@@ -211,8 +190,8 @@ export class Note extends Component {
           { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null }
           { this.props.note.content.length > 0 ? <div  dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
           { icons }
-          { toolTip }
         </div>
+        { this.state.colorWheel ? <ColorWheel id={ this.props.note._id } handleColorWheel={ this.handleColorWheel } handleUpdate={ this.props.handleUpdate }/> : null }
         { modal }
       </React.Fragment>
     )
