@@ -198,8 +198,10 @@ export class Note extends Component {
     }
     return (
       <React.Fragment>
-        <div className={classes.Container} style={styles} onClick={() => {
-            this.setState({modal: true});
+        <div className={classes.Container} style={styles} onClick={(e) => {
+            if (e.target.nodeName !== "A") {
+              this.setState({modal: true});
+            }
         }} onMouseOver={() => {
           this.setState({showIcons: true});
         }} onMouseLeave={() => {

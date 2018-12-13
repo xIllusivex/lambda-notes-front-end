@@ -120,7 +120,7 @@ class App extends Component {
       </div>
     )
     if (this.state.notes.length > 0) {
-      const columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth >= 480 ? 2 : window.innerWidth <= 480 ? 1 : 4;
+      const columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth > 500 ? 2 : window.innerWidth <= 500 ? 1 : 4;
       const notesLen = this.state.notes.length; // the length of the notes array.
       const avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
       let r = (notesLen / columns) % 1 * columns; // remainder of the length of the notes array divided by four.

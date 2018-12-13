@@ -5,7 +5,7 @@ import classes from './styles.css';
 export const Nav = (props) => {
   return (
     <div className={classes.Container}>
-      { window.innerWidth > 480 ?
+      { window.innerWidth > 500 ?
         <button className={classes.Container__MenuButton} onClick={props.handleState}>
           <i className={`fas fa-bars ${classes.Container__MenuIcon}`}></i>
         </button>

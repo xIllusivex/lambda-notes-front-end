@@ -51,7 +51,7 @@
     width: 50%;
   }
 }
-@media(max-width: 48rem) {
+@media(max-width: 50rem) {
   .Container__NotesCol {
     width: 100%;
   }
