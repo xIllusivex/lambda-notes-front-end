@@ -88,6 +88,21 @@ class App extends Component {
       this.setState({ notes: r.data });
     })
   }
+  // deletes the image linked to a note from the server and database.
+  handleImageDelete = (id) => {
+    axios.delete(`http://127.0.0.1:5000/api/media/images/${id}`)
+    .then(r => {
+      let { notes } = this.state;
+      notes.map((note) => {
+        if(note._id === r.data._id){
+          note.image = r.data.image;
+          return note
+        }
+        return note
+      })
+      this.setState( {notes: notes} );
+    })
+  }
   // submits a new note
   handleSubmit = (title, content) => {
     let newNote = {}
@@ -137,7 +152,7 @@ class App extends Component {
                 <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
                   { this.state.notes.slice(j, max).map( (n, i) => {
                     j += 1;
-                    return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal }/>
+                    return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal }/>
                   })}
                 </div>
               )

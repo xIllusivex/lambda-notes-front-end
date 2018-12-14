@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import classes from './styles.css';
 import ColorWheel from '../ColorWheel/';
 
-
 export class Note extends Component {
   constructor(props){
     super(props);
@@ -89,7 +88,6 @@ export class Note extends Component {
     }
     return str.join('');
   }
-
   render(){
     let icons = null;
     let styles = {
@@ -99,7 +97,7 @@ export class Note extends Component {
     if (this.props.note.display !== undefined &&!this.props.note.display) {
       styles['display'] = 'none';
     }
-    const image = this.props.note.image !== undefined ? this.props.note.image.name : null;
+    const image = this.props.note.image !== undefined || this.props.note.image !== '' ? this.props.note.image.name : null;
     let imgStyles = {
       height: '20rem',
       backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
@@ -107,13 +105,28 @@ export class Note extends Component {
       backgroundPosition: 'center',
       backgroundRepeat: 'none',
     }
-    let toolTip = null;
+    let modalStyles = {
+      border: this.state.backgroundColor === '#fff' ? '0' : `2px solid ${this.state.backgroundColor}`,
+    }
     let modal = null;
     if (this.state.modal === true) {
       styles.visibility = 'hidden';
       modal = (
         <div className={ classes.Container__Modal }>
-          <div className={ classes.Container__ContentContainer }>
+          <div style={ modalStyles } className={ classes.Container__ContentContainer }>
+            { this.props.note.image === '' ? null : (
+              <div style={ imgStyles }>
+                <div className={classes.Container__ModalButtonContainer}>
+                  <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right}
+                    onClick={() => {
+                      this.props.handleImageDelete(this.props.note._id);
+                      this.setState({ modal: false });
+                  }}>
+                    <i className={"fas fa-minus " + classes.Container__ModalIcon}></i>
+                  </div>
+                </div>
+              </div>
+            )}
             <input
               name='title'
               placeholder='Title'
@@ -129,11 +142,11 @@ export class Note extends Component {
               onChange={ this.changeVal }
             />
             <div className={classes.Container__ModalButtonContainer}>
-              <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right} onClick={() => {
+              <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right + " " + classes.Container__Border} onClick={() => {
                 this.props.handleDelete(this.props.note._id);
                 this.setState({ modal: false });
               }}>
-                <i className={"fas fa-trash-alt " + classes.Container__ModalIcon}></i>
+                <i className={`fas fa-trash-alt ${classes.Container__ModalIcon}`}></i>
               </div>
               <button className={classes.Container__ModalButton} onClick={() => {
                 if (this.state.title !== this.props.note.title || this.state.content !== this.props.note.content) {
