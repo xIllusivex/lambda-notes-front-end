@@ -37,7 +37,7 @@ class App extends Component {
           const base64data = reader.result;
           axios.put(`https://afternoon-citadel-23531.herokuapp.com/api/media/images/${n._id}`, { "image": base64data })
           .then(r => {
-            n.image.name = r.data.image.name;
+            n.image = {name: r.data.image.name};
             this.setState({ image_Modal: !this.state.image_Modal, notes: notes });
           })
           .catch(err => {

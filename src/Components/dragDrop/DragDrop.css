@@ -76,7 +76,7 @@
   pointer-events: none;
 }
 .DragDropContainer__WeightLimit:hover::after {
-  content: "Image Size Limit is eight Mbytes.";
+  content: "Image Limit: 8 Mbytes";
   position: absolute;
   top: -60px;
   left: -50px;
