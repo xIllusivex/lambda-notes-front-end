@@ -90,7 +90,7 @@ class App extends Component {
   }
   // deletes the image linked to a note from the server and database.
   handleImageDelete = (id) => {
-    axios.delete(`http://127.0.0.1:5000/api/media/images/${id}`)
+    axios.delete(`https://afternoon-citadel-23531.herokuapp.com/api/media/images/${id}`)
     .then(r => {
       let { notes } = this.state;
       notes.map((note) => {

@@ -127,6 +127,15 @@ export class Note extends Component {
                 </div>
               </div>
             )}
+            {this.props.note.image === '' ? <div className={classes.Container__ModalButtonContainer}>
+              <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right}
+                onClick={() => {
+                  this.setState({ modal: false });
+                  this.props.toggleModal(this.props.note);
+              }}>
+                <i className={"fas fa-plus " + classes.Container__ModalIcon}></i>
+              </div>
+            </div> : null }
             <input
               name='title'
               placeholder='Title'
