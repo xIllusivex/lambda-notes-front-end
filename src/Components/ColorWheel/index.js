@@ -29,7 +29,7 @@ class ColorWheel extends Component {
             <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.c51b5a3}`} onClick={() => {this.props.handleColorWheel('#5BAFA6'); this.props.handleUpdate(this.props.id, {background:'#5BAFA6'})}}></span></div>
             <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.c4e7d8d}`} onClick={() => {this.props.handleColorWheel('#8CC2D1'); this.props.handleUpdate(this.props.id, {background:'#8CC2D1'})}}></span></div>
             <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.c5c6182}`} onClick={() => {this.props.handleColorWheel('#7094CC'); this.props.handleUpdate(this.props.id, {background:'#7094CC'})}}></span></div>
-            <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.c926174}`} onClick={() => {this.props.handleColorWheel('#AC96D8'); this.props.handleUpdate(this.props.id, {background:'#AC96D8'})}}></span></div>
+            <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.c926174}`} onClick={() => {this.props.handleColorWheel('#C8929E'); this.props.handleUpdate(this.props.id, {background:'#C8929E'})}}></span></div>
             <div className={classes.Container__ColorContainer}><span className={`${classes.color} ${classes.cc44646}`} onClick={() => {this.props.handleColorWheel('#FE8689'); this.props.handleUpdate(this.props.id, {background:'#FE8689'})}}></span></div>
 
           </div>
