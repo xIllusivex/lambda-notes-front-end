@@ -100,20 +100,18 @@ export class Note extends Component {
     const image = this.props.note.image !== undefined || this.props.note.image !== '' ? this.props.note.image.name : null;
     let imgStyles = {
       height: '20rem',
+      backgroundColor: this.state.backgroundColor,
       backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
-      backgroundSize: 'cover',
+      backgroundSize: this.state.modal ? 'auto' : 'cover',
       backgroundPosition: 'center',
-      backgroundRepeat: 'none',
-    }
-    let modalStyles = {
-      border: this.state.backgroundColor === '#fff' ? '0' : `2px solid ${this.state.backgroundColor}`,
+      backgroundRepeat: 'no-repeat',
     }
     let modal = null;
     if (this.state.modal === true) {
       styles.visibility = 'hidden';
       modal = (
         <div className={ classes.Container__Modal }>
-          <div style={ modalStyles } className={ classes.Container__ContentContainer }>
+          <div className={ classes.Container__ContentContainer }>
             { this.props.note.image === '' ? null : (
               <div style={ imgStyles }>
                 <div className={classes.Container__ModalButtonContainer}>

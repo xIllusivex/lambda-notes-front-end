@@ -10,7 +10,7 @@ class ColorWheel extends Component {
     return(
       <div
         className={classes.Container}
-        onClick={ this.props.handleColorWheel }
+        onClick={ () =>  this.props.handleColorWheel() }
       >
         <div className={classes.Container__ColorWheel}
           onClick={(e) => {
