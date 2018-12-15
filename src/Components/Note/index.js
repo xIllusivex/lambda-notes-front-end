@@ -106,12 +106,13 @@ export class Note extends Component {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }
+    let modalStyles = { border: this.state.backgroundColor === '#fff' || this.props.note.image !== '' ? '0px' : `2px solid ${this.state.backgroundColor}`, }
     let modal = null;
     if (this.state.modal === true) {
       styles.visibility = 'hidden';
       modal = (
         <div className={ classes.Container__Modal }>
-          <div className={ classes.Container__ContentContainer }>
+          <div style={ modalStyles } className={ classes.Container__ContentContainer }>
             { this.props.note.image === '' ? null : (
               <div style={ imgStyles }>
                 <div className={classes.Container__ModalButtonContainer}>
@@ -195,6 +196,7 @@ export class Note extends Component {
         </div>
       )
     }
+
     return (
       <React.Fragment>
         <div className={classes.Container} style={styles} onClick={(e) => {
@@ -207,7 +209,7 @@ export class Note extends Component {
           this.setState({showIcons:false});
         }}>
           { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
-          { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title.length > 19 ? `${this.props.note.title.slice(0, 20).trim()}...`: this.props.note.title}</h3> : null }
+          { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null }
           { this.props.note.content.length > 0 ? <div  dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
           { icons }
         </div>
