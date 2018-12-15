@@ -119,7 +119,9 @@ export class Note extends Component {
                   <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right}
                     onClick={() => {
                       this.props.handleImageDelete(this.props.note._id);
-                      this.setState({ modal: false });
+                      this.setState({ modal: false }, () => {
+                        this.forceUpdate();
+                      });
                   }}>
                     <i className={"fas fa-minus " + classes.Container__ModalIcon}></i>
                   </div>

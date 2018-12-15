@@ -70,6 +70,17 @@
   flex-direction: row;
   justify-content: space-around;
 }
+.Container__IconContainer {
+  padding: 1rem;
+  cursor: pointer;
+}
+.Container__IconContainer:hover{
+  background: #801616;
+  border-radius: 3px;
+}
+.Container__Icon {
+  font-size: 3rem;
+}
 .Container__Pointer_None {
   pointer-events: none;
 }

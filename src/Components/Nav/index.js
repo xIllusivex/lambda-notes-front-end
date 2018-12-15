@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import classes from './styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faList, faTh } from '@fortawesome/fontawesome-free-solid';
 
 
 class Nav extends Component {
@@ -7,6 +9,7 @@ class Nav extends Component {
     super(props);
     this.state = {
       hideHeader: false,
+      listView: false,
     };
   }
   handleScroll = () => {
@@ -19,7 +22,9 @@ class Nav extends Component {
     }
   }
   componentDidMount() {
-    window.innerWidth <= 500 ? window.addEventListener('scroll', this.handleScroll) : null;
+    if (window.innerWidth <= 500) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
   render(){
     return (
@@ -44,7 +49,6 @@ class Nav extends Component {
         }} onBlur={(e) => {
           e.target.classList.remove('Container__Color_Black');
           e.target.parentNode.classList.remove('Container__Focus_White', 'Container__Color_Black');
-          // e.target.value='';
         }}>
           <i className={`fas fa-search ${classes.Container__SearchIcon}`}></i>
           <input
@@ -54,6 +58,13 @@ class Nav extends Component {
           />
         </div>
         <div className={classes.Container__IconsContainer}>
+          <div className={classes.Container__IconContainer}
+              onClick={() => {
+                this.setState({ listView: !this.state.listView }, () => {
+                });
+            }}>
+              <FontAwesomeIcon icon={ this.state.listView ? faTh : faList } className={ classes.Container__Icon } onClick={() => this.setState({ listView: !this.state.listView })} />
+            </div>
         </div>
       </div>
     )
