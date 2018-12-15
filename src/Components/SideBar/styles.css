@@ -5,6 +5,7 @@
   position: fixed;
   z-index: 2;
   background: white;
+  box-shadow: .1rem .2rem .5rem .1rem rgba(0,0,0,.5);
 }
 .Container__Header {
   font-size: 1.8rem;
