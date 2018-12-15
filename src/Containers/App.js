@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classes from './App.css';
-import { Nav } from '../Components/Nav';
+import Nav  from '../Components/Nav';
 import { Note } from '../Components/Note';
 // import {Route, Link, Redirect} from 'react-router-dom';
 import { SideBar } from '../Components/SideBar';
@@ -49,10 +49,15 @@ class App extends Component {
   }
   // GET's all notes from the server
   componentDidMount() {
-    axios.get('https://afternoon-citadel-23531.herokuapp.com/api/notes')
+    window.addEventListener('resize', () => {
+      this.forceUpdate();
+    })
+    if (this.state.notes.length < 1) {
+      axios.get('https://afternoon-citadel-23531.herokuapp.com/api/notes')
       .then(response => {
         this.setState({ notes: response.data });
       })
+    }
   }
   filterNotes = (value) => {
     const regexp = new RegExp(value, 'i');
@@ -137,9 +142,9 @@ class App extends Component {
       </div>
     )
     if (this.state.notes.length > 0) {
-      const columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth > 500 ? 2 : window.innerWidth <= 500 ? 1 : 4;
-      const notesLen = this.state.notes.length; // the length of the notes array.
-      const avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
+      let columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth > 500 ? 2 : window.innerWidth <= 500 ? 1 : 4;
+      let notesLen = this.state.notes.length; // the length of the notes array.
+      let avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
       let r = (notesLen / columns) % 1 * columns; // remainder of the length of the notes array divided by four.
       let j = 0; // the iterator to properly slice the notes array.
       notes = (

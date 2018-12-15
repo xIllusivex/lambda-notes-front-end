@@ -19,16 +19,12 @@ export class CreateNoteInput extends Component{
     let isActive = {
       display: 'none'
     };
-    let dspImg = {
-      display: 'inline'
-    };
     let displayIcons = {
       display: 'none'
     };
     if (this.state.inputActive === true) {
       isActive.display = 'flex';
       isActive.marginBottom = '2rem';
-      dspImg.display = 'none';
       displayIcons.display = 'flex';
       spaceInput.marginBottom = '1rem';
     };
@@ -52,9 +48,6 @@ export class CreateNoteInput extends Component{
             onClick={() => {this.setState({inputActive: true})}}
             style={spaceInput}
           />
-        <div className={classes.Container__ImgButton} style={dspImg}>
-            <i className={`fas fa-file-image ${classes.Container__ImageIcon}`}></i>
-          </div>
         </div>
         <div className={classes.Container__IconsContainer} style={displayIcons}>
           <button className={classes.Container__ImgButton}>
