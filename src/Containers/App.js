@@ -18,7 +18,11 @@ class App extends Component {
       menu: false,
       notes: [],
       note: null,
+      listView: false,
     };
+  }
+  handleToggleList = () => {
+    this.setState({ listView: !this.state.listView });
   }
   toggleModal = (note) => {
     if (!this.state.image_Modal) {
@@ -51,6 +55,9 @@ class App extends Component {
   componentDidMount() {
     window.addEventListener('resize', () => {
       this.forceUpdate();
+      if (window.innerWidth <= 500 && this.state.listView) {
+        this.setState({ listView: false });
+      }
     })
     if (this.state.notes.length < 1) {
       axios.get('https://afternoon-citadel-23531.herokuapp.com/api/notes')
@@ -142,34 +149,44 @@ class App extends Component {
       </div>
     )
     if (this.state.notes.length > 0) {
-      let columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth > 500 ? 2 : window.innerWidth <= 500 ? 1 : 4;
-      let notesLen = this.state.notes.length; // the length of the notes array.
-      let avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
-      let r = (notesLen / columns) % 1 * columns; // remainder of the length of the notes array divided by four.
-      let j = 0; // the iterator to properly slice the notes array.
-      notes = (
-        <div className={classes.Container__NotesContainer}>
-          {
-            [...Array(columns).keys()].map((i) => {
-              let max = r > 0 ? avg + 1 + j : avg + j;
-              if (r > 0) r--;
-              return (
-                <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
-                  { this.state.notes.slice(j, max).map( (n, i) => {
-                    j += 1;
-                    return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal }/>
-                  })}
-                </div>
-              )
-            })
-          }
-        </div>
-      )
+      if (!this.state.listView) {
+        let columns = window.innerWidth >= 993  ? 4 : window.innerWidth <= 992 && window.innerWidth >= 769 ? 3 : window.innerWidth <= 768 && window.innerWidth > 500 ? 2 : window.innerWidth <= 500 ? 1 : 4;
+        let notesLen = this.state.notes.length; // the length of the notes array.
+        let avg = ~~(notesLen / columns); // the floored avg of the length of the notes arr divided by four.
+        let r = (notesLen / columns) % 1 * columns; // remainder of the length of the notes array divided by four.
+        let j = 0; // the iterator to properly slice the notes array.
+        notes = (
+          <div className={classes.Container__NotesContainer}>
+            {
+              [...Array(columns).keys()].map((i) => {
+                let max = r > 0 ? avg + 1 + j : avg + j;
+                if (r > 0) r--;
+                return (
+                  <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
+                    { this.state.notes.slice(j, max).map( (n, i) => {
+                      j += 1;
+                      return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
+                    })}
+                  </div>
+                )
+              })
+            }
+          </div>
+        )
+      } else {
+        notes = (
+          <div className={classes.Container__NotesListContainer}>
+            {this.state.notes.map((n, i) => {
+              return <Note key={ "note" + i } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
+            })}
+          </div>
+        )
+      }
     }
     return (
       <div className={classes.Container}>
         { modal }
-        <Nav handleState={this.handleState} filterNotes={ this.filterNotes }/>
+        <Nav handleState={this.handleState} filterNotes={ this.filterNotes } handleToggleList={ this.handleToggleList } listView={ this.state.listView }/>
         <div className={classes.Container__ContentContainer}>
           {this.state.menu ? <SideBar/> : null}
           <div className={classes.Container__InputContainer}>

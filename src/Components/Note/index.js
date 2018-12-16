@@ -99,7 +99,8 @@ export class Note extends Component {
     }
     const image = this.props.note.image !== undefined || this.props.note.image !== '' ? this.props.note.image.name : null;
     let imgStyles = {
-      height: '20rem',
+      height: this.props.listView && !this.state.modal ? 'auto' : '20rem',
+      width: this.props.listView && !this.state.modal ? '24rem' : 'auto',
       backgroundColor: this.state.backgroundColor,
       backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
       backgroundSize: this.state.modal ? 'auto' : 'cover',
@@ -198,10 +199,31 @@ export class Note extends Component {
         </div>
       )
     }
-
+    let noteContent = null;
+    if (!this.props.listView) {
+      noteContent = (
+        <React.Fragment>
+          { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
+          { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null }
+          { this.props.note.content.length > 0 ? <div  dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
+          { icons }
+        </React.Fragment>
+      )
+    } else {
+      noteContent = (
+        <React.Fragment>
+          { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
+          <div className={classes.ListViewContentContainer}>
+            { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null }
+            { this.props.note.content.length > 0 ? <div style={{ maxHeight: '130px' }} dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
+            { icons }
+          </div>
+        </React.Fragment>
+      )
+    }
     return (
       <React.Fragment>
-        <div className={classes.Container} style={styles} onClick={(e) => {
+        <div className={ this.props.listView ? classes.ListContainer  : classes.Container } style={styles} onClick={(e) => {
             if (e.target.nodeName !== "A") {
               this.setState({modal: true});
             }
@@ -210,10 +232,7 @@ export class Note extends Component {
         }} onMouseLeave={() => {
           this.setState({showIcons:false});
         }}>
-          { this.props.note.image === '' ? null : <div style={ imgStyles }></div> }
-          { this.props.note.title.length > 0 ? <h3 className={classes.Container__Header}>{this.props.note.title}</h3> : null }
-          { this.props.note.content.length > 0 ? <div  dangerouslySetInnerHTML={{ __html: this.props.note.content.length > 100 ? this.parseMarkDown(this.props.note.content) : this.parseMarkDown(this.props.note.content)  }} className={classes.Container__Text}></div> : null }
-          { icons }
+          { noteContent }
         </div>
         { this.state.colorWheel ? <ColorWheel id={ this.props.note._id } handleColorWheel={ this.handleColorWheel } handleUpdate={ this.props.handleUpdate }/> : null }
         { modal }

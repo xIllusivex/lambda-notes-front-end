@@ -4,12 +4,25 @@
   position: relative;
   margin-bottom: 2rem;
   box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
-  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
 }
-.Container:hover {
+.ListContainer {
+  width: 90%;
+  height: 20rem;
+  position: relative;
+  margin-bottom: 2rem;
+  box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+}
+.Container:hover, .ListContainer:hover {
   box-shadow: .1rem .4rem .6rem .2rem rgba(0, 0, 0, 0.5);
+}
+.ListViewContentContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .Container__Header {
   font-size: 2rem;
@@ -21,16 +34,13 @@
   text-overflow: ellipsis;
 }
 .Container__Text {
-  max-height: 26rem;
   font-size: 3rem;
-  pointer-events: none;
-  overflow: hidden;
+  overflow-y: scroll;
   padding: 1rem;
   line-height: 1;
 }
 .Container__IconsContainer {
   width: 100%;
-  min-height: 3rem;
   display: flex;
   margin-top: auto;
 }

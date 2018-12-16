@@ -9,7 +9,6 @@ class Nav extends Component {
     super(props);
     this.state = {
       hideHeader: false,
-      listView: false,
     };
   }
   handleScroll = () => {
@@ -57,15 +56,14 @@ class Nav extends Component {
             onChange={(e) => this.props.filterNotes(e.target.value)}
           />
         </div>
-        <div className={classes.Container__IconsContainer}>
+        { window.innerWidth > 500 ? <div className={classes.Container__IconsContainer}>
           <div className={classes.Container__IconContainer}
               onClick={() => {
-                this.setState({ listView: !this.state.listView }, () => {
-                });
+                this.props.handleToggleList();
             }}>
-              <FontAwesomeIcon icon={ this.state.listView ? faTh : faList } className={ classes.Container__Icon } onClick={() => this.setState({ listView: !this.state.listView })} />
+              <FontAwesomeIcon icon={ this.props.listView ? faTh : faList } className={ classes.Container__Icon }/>
             </div>
-        </div>
+        </div>: null }
       </div>
     )
   }
