@@ -100,7 +100,7 @@ export class Note extends Component {
     const image = this.props.note.image !== undefined || this.props.note.image !== '' ? this.props.note.image.name : null;
     let imgStyles = {
       height: this.props.listView && !this.state.modal ? 'auto' : '20rem',
-      width: this.props.listView && !this.state.modal ? '24rem' : 'auto',
+      minWidth: this.props.listView && !this.state.modal ? '24rem' : 'auto',
       backgroundColor: this.state.backgroundColor,
       backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
       backgroundSize: this.state.modal ? 'auto' : 'cover',
