@@ -96,7 +96,6 @@ textarea {
 .Container__ModalButtonContainer {
   margin-top: auto;
   display: flex;
-  justify-content: flex-end;
 }
 .Container__ModalButton {
   background: transparent;
@@ -105,6 +104,7 @@ textarea {
   padding: 0.5rem;
   cursor: pointer;
   font-weight: bold;
+  margin-left: auto;
 }
 .Container__ModalButton:hover {
   border: 1px solid gray;

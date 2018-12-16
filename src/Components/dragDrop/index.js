@@ -25,7 +25,21 @@ class DragDrop extends Component {
     const UPLOAD = document.getElementById("button");
     UPLOAD.click();
   };
-
+  handleFiles = () => {
+    const INPUT = document.getElementById("button");
+    const FILES = INPUT.files;
+    for (let i = 0; i < FILES.length; i++) {
+      if (FILES[i].type.match(/^image\/(?:jpeg|png|gif)$/)) {
+        if (FILES[i].size < 8000000) {
+          this.props.submitFile(FILES[i]);
+        } else {
+          console.log("file is too large");
+        }
+      } else {
+        console.log("file is of wrong type");
+      }
+    }
+  }
   dragOver = e => {
     e.preventDefault();
     e.target.style.background = "white";
@@ -116,6 +130,8 @@ class DragDrop extends Component {
                   id="button"
                   className={ classes.DragDropContainer__UploadButton }
                   name="file1"
+                  accept="image/png, image/jpg, image/jpeg, image/gif"
+                  onChange={() => this.handleFiles()}
                 />
               </p>
             </div>

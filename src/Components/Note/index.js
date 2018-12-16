@@ -153,11 +153,19 @@ export class Note extends Component {
               onChange={ this.changeVal }
             />
             <div className={classes.Container__ModalButtonContainer}>
-              <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right + " " + classes.Container__Border} onClick={() => {
+              <div className={classes.Container__IconContainer} onClick={() => {
                 this.props.handleDelete(this.props.note._id);
                 this.setState({ modal: false });
               }}>
-                <i className={`fas fa-trash-alt ${classes.Container__ModalIcon}`}></i>
+                <i className={`fas fa-trash-alt ${classes.Container__NoteIcon}`}></i>
+              </div>
+              <div className={classes.Container__IconContainer}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                  this.handleColorWheel();
+              }}>
+                <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
               </div>
               <button className={classes.Container__ModalButton} onClick={() => {
                 if (this.state.title !== this.props.note.title || this.state.content !== this.props.note.content) {

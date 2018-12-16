@@ -165,7 +165,7 @@ class App extends Component {
                   <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
                     { this.state.notes.slice(j, max).map( (n, i) => {
                       j += 1;
-                      return <Note key={ "note" + j } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
+                      return <Note key={ "note" + j + n.title } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
                     })}
                   </div>
                 )
@@ -177,7 +177,7 @@ class App extends Component {
         notes = (
           <div className={classes.Container__NotesListContainer}>
             {this.state.notes.map((n, i) => {
-              return <Note key={ "note" + i } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
+              return <Note key={ "note" + i + n.title } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
             })}
           </div>
         )
