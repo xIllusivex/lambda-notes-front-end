@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import classes from './styles.css';
 import ColorWheel from '../ColorWheel/';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand, faCompress } from '@fortawesome/fontawesome-free-solid';
+
 
 export class Note extends Component {
   constructor(props){
@@ -13,6 +16,7 @@ export class Note extends Component {
       content: this.props.note.content,
       backgroundColor: this.props.note.background,
       image: this.props.note.image,
+      expand: false, // expanding the textarea in the note modal.
     };
   }
   handleColorWheel = (color) => {
@@ -107,14 +111,18 @@ export class Note extends Component {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }
-    let modalStyles = { border: this.state.backgroundColor === '#fff' || this.props.note.image !== '' ? '0px' : `2px solid ${this.state.backgroundColor}`, }
+    let modalStyles = {
+      border: this.state.backgroundColor === '#fff' || this.props.note.image !== '' ? '0px' : `2px solid ${this.state.backgroundColor}`,
+      position: this.state.expand ? 'static' : 'fixed',
+      height: this.state.expand ? '95%' : 'auto',
+    }
     let modal = null;
     if (this.state.modal === true) {
       styles.visibility = 'hidden';
       modal = (
         <div className={ classes.Container__Modal }>
           <div style={ modalStyles } className={ classes.Container__ContentContainer }>
-            { this.props.note.image === '' ? null : (
+            { this.props.note.image === '' || this.state.expand ? null : (
               <div style={ imgStyles }>
                 <div className={classes.Container__ModalButtonContainer}>
                   <div className={classes.Container__ModalIconContainer + " " + classes.Container__Margin_Right}
@@ -151,6 +159,7 @@ export class Note extends Component {
               value={ this.state.content }
               className={ classes.Container__ModalInput }
               onChange={ this.changeVal }
+              style={{height: this.state.expand ? '100%' : 'auto'}}
             />
             <div className={classes.Container__ModalButtonContainer}>
               <div className={classes.Container__IconContainer} onClick={() => {
@@ -167,12 +176,19 @@ export class Note extends Component {
               }}>
                 <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
               </div>
+              <div
+                className={classes.Container__IconContainer}
+                onClick={(e) => {
+                  this.setState({expand: !this.state.expand});
+              }}>
+                <FontAwesomeIcon icon={ this.state.expand ? faCompress : faExpand } className={ classes.Container__NoteIcon }/>
+              </div>
               <button className={classes.Container__ModalButton} onClick={() => {
                 if (this.state.title !== this.props.note.title || this.state.content !== this.props.note.content) {
                   const update = {title: this.state.title, content: this.state.content};
                   this.props.handleUpdate(this.props.note._id, update);
                 }
-                this.setState({ modal: false })
+                this.setState({ modal: false, expand: false })
               }}>Close</button>
             </div>
           </div>
