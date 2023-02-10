@@ -20,6 +20,7 @@
   border-radius: 0;
   width: 100%;
   font-size: 1.8rem;
+  outline: none;
 }
 .Container__ImgButton {
   border: 0;
@@ -75,4 +76,10 @@
 }
 .Container__Margin_Right {
   margin-left: 1rem;
+}
+
+@media(max-width: 700px) {
+  .Container {
+    width: 100%;
+  }
 }
