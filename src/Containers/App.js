@@ -33,7 +33,7 @@ class App extends Component {
   }
   submitFile = (image) => {
     const { notes } = this.state;
-    notes.map((n) => {
+    notes.forEach((n) => {
       if (n === this.state.note) {
         const reader = new FileReader();
         reader.readAsDataURL(image);
@@ -69,12 +69,11 @@ class App extends Component {
   filterNotes = (value) => {
     const regexp = new RegExp(value, 'i');
     const {notes} = this.state;
-    notes.map((n) => {
-      if (regexp.test(n.title)){
-        n['display'] = true;
-      } else n['display'] = false;
+    const newNotes = notes.map((n) => {
+      n['display'] = regexp.test(n.title);
+      return n;
     })
-    this.setState({ notes: notes });
+    this.setState({ notes: newNotes });
   }
   // sends a put request to the server to update the values in a note.
   handleUpdate = (id, update) => {
