@@ -35,7 +35,7 @@ export class Note extends Component {
     for (let i=0; i < str.length; i++) {
       if (str[i] === '#') {
         const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
-        str.splice(i, subStr.length, subStr.replace(/(\#+)([\w\W]+)/i, (match, p1, p2, offset, string) => {
+        str.splice(i, subStr.length, subStr.replace(/(#+)([\w\W]+)/i, (match, p1, p2, offset, string) => {
           return `<h${p1.length <=6 ? p1.length : 6}>${p2}</h${p1.length <=6 ? p1.length : 6}>`;
         }));
         i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length;
@@ -43,7 +43,7 @@ export class Note extends Component {
       else if (str[i] === '>') {
         const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
 
-        str.splice(i, subStr.length, subStr.replace(/\>([\w\W]+)/i, (match, p1, offset, string) => {
+        str.splice(i, subStr.length, subStr.replace(/>([\w\W]+)/i, (match, p1, offset, string) => {
           return `<p class='Container__Blockquote'>${p1}</p>`;
         }));
 
@@ -62,8 +62,8 @@ export class Note extends Component {
       else if (str[i] === '`') {
         const subStr = str.slice(i, str.indexOf('`', i + 3) !== -1 ? str.indexOf('`', i + 3) + 3: str.length).join('');
         str.splice(i, subStr.length + 1, subStr.replace(/^(```)([\w\W]+)(```)$/i, (match, p1, p2, p3, offset, string) => {
-          p2 = p2.replace(/\</g, '&lt;');
-          p2 = p2.replace(/\>/g, '&gt;');
+          p2 = p2.replace(/</g, '&lt;');
+          p2 = p2.replace(/>/g, '&gt;');
           p2 = p2[0] !== '\n' ? p2.replace(/\n/g, '<br/>') : p2.slice(1,).replace(/\n/g, '<br/>');
           if (p1.length === 3) {
             return `<p class='Container__Codeblock'>${p2}</p>`;
@@ -74,7 +74,8 @@ export class Note extends Component {
       }
       else if (str[i] === '!') {
         const subStr = str.slice(i, str.indexOf(')', i) !== -1 ? str.indexOf(')', i) + 1: str.length).join('');
-        str.splice(i, subStr.length, subStr.replace(/\!\[([\w\W]+)\]\((https:\/\/[\w\/\.\-]+\.(?:png|jpe?g|svg))\)/i, (match, p1, p2, p3, offset, string) => {
+        // eslint-disable-next-line no-useless-escape
+        str.splice(i, subStr.length, subStr.replace(/!\[([\w\W]+)\]\((https:\/\/[\w\/.\-]+\.(?:png|jpe?g|svg))\)/i, (match, p1, p2, p3, offset, string) => {
           return `<img src='${p2}' alt='${p1 !== undefined ? p1 : ''}'/>`;
         }));
         i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) - 1 : str.length;

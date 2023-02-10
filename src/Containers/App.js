@@ -12,7 +12,7 @@ import Modal from '../Components/dragDrop/';
 
 class App extends Component {
   constructor() {
-    super();
+    super({});
     this.state = {
       image_Modal:false,
       menu: false,
@@ -130,7 +130,7 @@ class App extends Component {
           notes.push(r.data);
           this.setState({ notes: notes });
         })
-    } else { console.log('you need to either have a title or body filled out') };
+    } else { console.log('you need to either have a title or body filled out') }
   }
   // changes the value of the menu field. depending on wether they need it to be rendered or not
   handleState = () => {
@@ -162,7 +162,7 @@ class App extends Component {
                 if (r > 0) r--;
                 return (
                   <div key={`NotesCol${i}`} className={classes.Container__NotesCol}>
-                    { this.state.notes.slice(j, max).map( (n, i) => {
+                    { this.state.notes.slice(j, max).map( (n) => {
                       j += 1;
                       return <Note key={ "note" + j + n.title } note={ n } handleUpdate={ this.handleUpdate } handleImageDelete={ this.handleImageDelete } handleDelete={ this.handleDelete } toggleModal={ this.toggleModal } listView={ this.state.listView }/>
                     })}
