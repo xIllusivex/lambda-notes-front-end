@@ -58,6 +58,7 @@
 .Container__IconContainer {
   padding: 1rem;
   cursor: pointer;
+  pointer-events: all;
 }
 .Container__IconContainer:hover .Container__NoteIcon {
   color: rgb(0, 0, 0, 1);
