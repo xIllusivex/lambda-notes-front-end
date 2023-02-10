@@ -33,17 +33,20 @@
   pointer-events: none;
   white-space: nowrap;
   overflow: hidden;
-  padding: 1rem;
+  padding: .5rem;
   text-overflow: ellipsis;
+  min-height: 3rem;
 }
 .Container__Text {
   font-size: 3rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 1rem;
-  line-height: 1.25;
+  padding: .5rem;
+  line-height: 1.15;
   outline: none;
+  min-height: 3.5rem;
+  box-sizing: border-box;
 }
 .Container__IconsContainer {
   width: 100%;

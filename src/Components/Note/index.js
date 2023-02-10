@@ -86,7 +86,7 @@ export class Note extends Component {
       else {
         const subStr = str.slice(i, str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length).join('');
         str.splice(i, subStr.length, subStr.replace(/([\w\W]+)/i, (match, p1, offset, string) => {
-          return `<p>${p1}</p>`;
+          return p1;
         }));
         i = str.indexOf('\n', i) !== -1 ? str.indexOf('\n', i) : str.length;
       }
@@ -104,7 +104,7 @@ export class Note extends Component {
     }
     const image = this.props.note.image !== undefined || this.props.note.image !== '' ? this.props.note.image.name : null;
     let imgStyles = {
-      height: this.props.listView && !this.state.modal ? 'auto' : '20rem',
+      height: this.props.listView && !this.state.modal ? 'auto' : '30rem',
       minWidth: this.props.listView && !this.state.modal ? '24rem' : 'auto',
       backgroundColor: this.state.backgroundColor,
       backgroundImage: `url(https://afternoon-citadel-23531.herokuapp.com/api/media/images/${image})`,
