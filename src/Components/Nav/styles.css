@@ -58,6 +58,7 @@
   font-weight: 900;
   background: transparent;
   color: white;
+  outline: none;
 }
 .Container__SearchInput::placeholder {
   opacity: 1;

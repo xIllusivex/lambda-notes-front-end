@@ -32,7 +32,7 @@ export class CreateNoteInput extends Component{
       <div className={classes.Container}>
         <input
           placeholder='Title'
-          className={classes.Container__Font_Bold + " " + classes.Container__Input}
+          className={classes.Container__Font_Bold + " " + classes.Container__Input + " " + classes.Container__Width_30}
           style={ isActive }
           name='title'
           value={this.state.title}

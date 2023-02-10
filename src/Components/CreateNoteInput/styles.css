@@ -7,11 +7,13 @@
   align-items: center;
   flex-direction: column;
   box-shadow: .1rem .3rem .6rem .1rem rgba(0, 0, 0, 0.7);
+  width: 30%;
 }
 .Container__InputContainer{
   width: 100%;
   display: flex;
   flex-direction: row;
+  outline: none;
 }
 .Container__Input {
   border: 0;

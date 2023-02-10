@@ -1,6 +1,10 @@
 :global(:root) {
   font-size: 62.5%;
 }
+:global(html) {
+  font-size: 62.5%;
+}
+
 :global(*) {
   margin: 0;
   padding: 0;

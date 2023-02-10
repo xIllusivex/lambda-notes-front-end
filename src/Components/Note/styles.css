@@ -1,12 +1,14 @@
 .Container{
   width: 90%;
   min-height: 15rem;
+  max-height: 25rem;
   position: relative;
   margin-bottom: 2rem;
   box-shadow: .1rem .2rem .5rem .1rem rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 }
+
 .ListContainer {
   width: 90%;
   height: 20rem;
@@ -36,14 +38,22 @@
 }
 .Container__Text {
   font-size: 3rem;
-  overflow-y: scroll;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   padding: 1rem;
-  line-height: 1;
+  line-height: 1.25;
+  outline: none;
 }
 .Container__IconsContainer {
   width: 100%;
   display: flex;
   margin-top: auto;
+  visibility: hidden;
+  pointer-events: none;
+}
+.Container:hover .Container__IconsContainer {
+  visibility: visible;
 }
 .Container__IconContainer {
   padding: 1rem;
@@ -86,6 +96,7 @@
   border-radius: 0;
   font-size: 2rem;
   padding: 1rem 1rem 0;
+  outline: none;
 }
 textarea {
   resize: none;
@@ -139,4 +150,10 @@ textarea {
 }
 :global(.pointer) {
   pointer-events: all;
+}
+
+@media(max-width: 40rem) {
+  .Container {
+    width: 100%;
+  }
 }

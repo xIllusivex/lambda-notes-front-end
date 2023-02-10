@@ -112,7 +112,7 @@ export class Note extends Component {
       backgroundRepeat: 'no-repeat',
     }
     let modalStyles = {
-      border: this.state.backgroundColor === '#fff' || this.props.note.image !== '' ? '0px' : `2px solid ${this.state.backgroundColor}`,
+      border: this.state.backgroundColor === '#fff' ? '0px' : `2px solid ${this.state.backgroundColor}`,
       position: this.state.expand ? 'static' : 'fixed',
       height: this.state.expand ? '95%' : 'auto',
     }
@@ -195,32 +195,32 @@ export class Note extends Component {
         </div>
       )
     }
-    if (this.state.showIcons === true) {
+    if (true) {
       icons = (
-        <div className={classes.Container__IconsContainer} onClick={(e) => {
+          <div className={classes.Container__IconsContainer} onClick={(e) => {
             e.preventDefault()
             e.stopPropagation();
             e.nativeEvent.stopImmediatePropagation();
           }}>
-          <div
-            className={classes.Container__IconContainer}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-              this.handleColorWheel();
-          }}>
-            <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
+            <div
+                className={classes.Container__IconContainer}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                  this.handleColorWheel();
+                }}>
+              <i className={"fas fa-paint-brush " + classes.Container__NoteIcon}></i>
+            </div>
+            <div
+                className={classes.Container__IconContainer}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                  this.props.toggleModal(this.props.note);
+                }}>
+              <i className={"fas fa-image " + classes.Container__NoteIcon}></i>
+            </div>
           </div>
-          <div
-            className={classes.Container__IconContainer}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-              this.props.toggleModal(this.props.note);
-          }}>
-            <i className={"fas fa-image " + classes.Container__NoteIcon}></i>
-          </div>
-        </div>
       )
     }
     let noteContent = null;
